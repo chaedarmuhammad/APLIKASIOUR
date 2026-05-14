@@ -850,6 +850,44 @@ body {
 }
 
 /* ── RANGKUMAN: Bentuk VV (Tab Bentuk VV) ── */
+.rsum-tab-info {
+  font-size: 0.8rem; color: var(--text); line-height: 1.65;
+  margin-bottom: 14px; padding: 12px 14px;
+  background: linear-gradient(135deg, rgba(124,106,247,0.08), rgba(192,132,252,0.05));
+  border: 1px solid rgba(124,106,247,0.22);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+}
+.rsum-tab-info b { color: var(--accent2); }
+.rsum-tab-info .rsum-tab-info-sub {
+  display: block; margin-top: 6px;
+  font-size: 0.73rem; color: var(--text2); font-style: italic;
+}
+.rsum-conj-section { margin-bottom: 26px; }
+.rsum-conj-section-head {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 14px; margin-bottom: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent2);
+  border-radius: 10px;
+}
+.rsum-conj-section-num {
+  flex: 0 0 auto;
+  width: 32px; height: 32px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff; font-weight: 800; font-size: 0.95rem;
+  border-radius: 8px;
+}
+.rsum-conj-section-title {
+  font-size: 0.92rem; font-weight: 700; color: var(--text);
+  letter-spacing: 0.01em;
+}
+.rsum-conj-section-sub {
+  font-size: 0.74rem; color: var(--text2);
+  line-height: 1.55; margin-top: 2px;
+}
 .rsum-vv-intro {
   font-size: 0.78rem; color: var(--text2); line-height: 1.7;
   margin-bottom: 16px; padding: 10px 14px;
@@ -966,6 +1004,11 @@ body {
   /* Bentuk VV */
   .rsum-vv-group-label { font-size: 0.78rem; }
   .rsum-vv-intro { font-size: 0.76rem; }
+  .rsum-tab-info { font-size: 0.76rem; padding: 10px 12px; }
+  .rsum-tab-info .rsum-tab-info-sub { font-size: 0.7rem; }
+  .rsum-conj-section-num { width: 28px; height: 28px; font-size: 0.85rem; }
+  .rsum-conj-section-title { font-size: 0.85rem; }
+  .rsum-conj-section-sub { font-size: 0.7rem; }
 
   /* Konjugasi — buat kolom Ket. lebih kecil */
   .rsum-form { font-size: 0.74rem; }
@@ -1322,11 +1365,11 @@ body {
   </div>
   <!-- Tabs -->
   <div class="tabs" id="rsumTabs">
-    <button class="tab-btn active" onclick="switchRsumTab(0)">📐 Pola</button>
-    <button class="tab-btn" onclick="switchRsumTab(1)">🔗 Partikel</button>
-    <button class="tab-btn" onclick="switchRsumTab(2)">🏃 Bentuk VV</button>
-    <button class="tab-btn" onclick="switchRsumTab(3)">🔄 Konjugasi</button>
-    <button class="tab-btn" onclick="switchRsumTab(4)">✨ Kata Sifat</button>
+    <button class="tab-btn active" onclick="switchRsumTab(0)" title="Pola kalimat lengkap per bab — KAPAN dipakai">📐 Pola Kalimat</button>
+    <button class="tab-btn" onclick="switchRsumTab(1)" title="Partikel beserta semua fungsinya">🔗 Partikel</button>
+    <button class="tab-btn" onclick="switchRsumTab(2)" title="Pola bunpou dikelompokkan berdasarkan bentuk verba">🏃 Pola per Bentuk</button>
+    <button class="tab-btn" onclick="switchRsumTab(3)" title="Aturan / rumus pembentukan setiap bentuk verba">🔄 Aturan Konjugasi KK</button>
+    <button class="tab-btn" onclick="switchRsumTab(4)" title="Aturan / rumus konjugasi kata sifat">✨ Konjugasi KS</button>
   </div>
   <div id="rsum-tab-0" class="tab-content active"></div>
   <div id="rsum-tab-1" class="tab-content"></div>
@@ -6894,6 +6937,11 @@ function renderRangkuman() {
   const tab0 = document.getElementById('rsum-tab-0');
   tab0.innerHTML = `<div style="padding:16px 14px 20px">
     <div class="rsum-section-title">📐 Pola Kalimat — <span style="color:${lvColor}">${lvLabel}</span></div>
+    <div class="rsum-tab-info">
+      <b>Fokus tab ini:</b> daftar <b>pola kalimat lengkap</b> dikelompokkan per bab.
+      Cari di sini kalau ingin tahu <b>kapan</b> sebuah pola dipakai dan <b>contoh kalimatnya</b>.
+      <span class="rsum-tab-info-sub">↗ Untuk rumus konjugasi → tab "Aturan Konjugasi KK". Untuk pola dikelompokkan per bentuk verba → tab "Pola per Bentuk".</span>
+    </div>
     <div class="rsum-bab-filter-bar">
       ${polaSubFilters}
       <button class="rsum-bab-filter-btn" onclick="rsumExpandCollapseAll(true)" style="margin-left:auto">⬇ Buka Semua</button>
@@ -6966,6 +7014,10 @@ function renderRangkuman() {
   </div>` : '';
   document.getElementById('rsum-tab-1').innerHTML = `<div style="padding:16px 14px 20px">
     <div class="rsum-section-title">🔗 Partikel — <span style="color:${lvColor}">${lvLabel}</span></div>
+    <div class="rsum-tab-info">
+      <b>Fokus tab ini:</b> setiap <b>partikel</b> (は・が・を・に・で…) beserta <b>semua fungsinya</b> dan contoh ringkas.
+      <span class="rsum-tab-info-sub">↗ Untuk pola kalimat lengkap → tab "Pola Kalimat".</span>
+    </div>
     ${n4PartInfo}
     ${rsumLevel !== 'n4' ? niVsDeBox : ''}
     ${partHtml}
@@ -7003,7 +7055,12 @@ function renderRangkuman() {
     </div>`;
   }).filter(Boolean).join('');
   document.getElementById('rsum-tab-2').innerHTML = `<div style="padding:16px 14px 20px">
-    <div class="rsum-section-title">🏃 Pola Bunpou per Bentuk KK — <span style="color:${lvColor}">${lvLabel}</span></div>
+    <div class="rsum-section-title">🏃 Pola per Bentuk Verba — <span style="color:${lvColor}">${lvLabel}</span></div>
+    <div class="rsum-tab-info">
+      <b>Fokus tab ini:</b> <b>pola bunpou yang sama</b> dengan tab "Pola Kalimat", namun dikelompokkan berdasarkan <b>bentuk verba</b> (ます形・て形・た形・ない形・辞書形・意向形・普通体・たら・ても・ば・受身).
+      Berguna kalau Anda sudah tahu <b>bentuknya</b> dan ingin melihat <b>semua pola yang memakainya</b>.
+      <span class="rsum-tab-info-sub">↗ Untuk <b>rumus pembentukan</b> tiap bentuk → tab "Aturan Konjugasi KK".</span>
+    </div>
     <div class="rsum-vv-intro">
       Tabel ini mengelompokkan pola bunpou berdasarkan <b>bentuk konjugasi kata kerja</b>. Pola tanpa entri di level ini disembunyikan otomatis.
     </div>
@@ -7011,11 +7068,15 @@ function renderRangkuman() {
   </div>`;
 
   // ─── Tab 3: Konjugasi KK ───
-  // Grup dasar I/II/III/⚠️ = N5. Grup たら/可能/ても/ながら = N4 (bab 36+)
+  // Grup dasar I/II/III/⚠️ = Klasifikasi verba (N5 fundamental)
+  // たら/可能/ても/ながら/受身  = Bentuk turunan (mostly N4)
   const konjN4Groups = ['たら', '可能', 'ても', 'ながら', '受身'];
-  let konjHtml = '';
+  const konjBentukTurunan = new Set(['たら', '可能', 'ても', 'ながら', '受身']);
+  let konjGrupHtml = '';      // Section A: Klasifikasi grup verba
+  let konjTurunanHtml = '';   // Section B: Bentuk turunan
   RANGKUMAN_KONJUGASI.forEach(g => {
     const isN4Group = konjN4Groups.includes(g.grup);
+    const isTurunan = konjBentukTurunan.has(g.grup);
     // Filter by level
     if (rsumLevel === 'n5' && isN4Group) return;
     if (rsumLevel === 'n4' && !isN4Group) return;
@@ -7061,7 +7122,7 @@ function renderRangkuman() {
         <td style="font-size:0.68rem;color:var(--text2)">${r.catatan}</td>
       </tr>`).join('');
     const aturanHtml = g.aturan.map(a => `<li style="margin-bottom:4px">${a}</li>`).join('');
-    konjHtml += `
+    const blockHtml = `
       <div style="margin-bottom:18px">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
           <span class="rsum-conj-group ${g.warna}">Grup ${g.grup}</span>
@@ -7080,6 +7141,8 @@ function renderRangkuman() {
         </table>
         </div>
       </div>`;
+    if (isTurunan) konjTurunanHtml += blockHtml;
+    else           konjGrupHtml    += blockHtml;
   });
   const konjNotes = `
     <div style="margin-top:4px">
@@ -7148,10 +7211,41 @@ function renderRangkuman() {
       </table></div>
     </div>`;
 
+  // Bungkus dua section jadi sub-header yang jelas
+  const sectionGrupBlock = konjGrupHtml ? `
+    <div class="rsum-conj-section">
+      <div class="rsum-conj-section-head">
+        <span class="rsum-conj-section-num">A</span>
+        <div>
+          <div class="rsum-conj-section-title">Klasifikasi Grup Verba</div>
+          <div class="rsum-conj-section-sub">Cara membedakan jenis kata kerja: Grup I (Godan), Grup II (Ichidan), Grup III (tidak beraturan), dan pengecualian khusus.</div>
+        </div>
+      </div>
+      ${konjGrupHtml}
+    </div>` : '';
+  const sectionTurunanBlock = konjTurunanHtml ? `
+    <div class="rsum-conj-section">
+      <div class="rsum-conj-section-head">
+        <span class="rsum-conj-section-num">B</span>
+        <div>
+          <div class="rsum-conj-section-title">Bentuk Turunan</div>
+          <div class="rsum-conj-section-sub">Aturan pembentukan bentuk turunan dari verba dasar: 〜たら (kondisi), 可能形 (potensial), 〜ても (walaupun), 〜ながら (sambil), 受身形 (pasif).</div>
+        </div>
+      </div>
+      ${konjTurunanHtml}
+    </div>` : '';
+
   document.getElementById('rsum-tab-3').innerHTML = `<div style="padding:16px 14px 20px">
-    <div class="rsum-section-title">🔄 Konjugasi Kata Kerja — <span style="color:${lvColor}">${lvLabel}</span></div>
+    <div class="rsum-section-title">🔄 Aturan Konjugasi Kata Kerja — <span style="color:${lvColor}">${lvLabel}</span></div>
+    <div class="rsum-tab-info">
+      <b>Fokus tab ini:</b> <b>rumus / aturan pembentukan</b> setiap bentuk verba.
+      Cari di sini kalau ingin tahu <b>bagaimana cara membentuk</b> bentuk tertentu (mis. <i>のむ → のんで</i>).
+      Dipisah jadi <b>A. Klasifikasi Grup Verba</b> (jenis verba) dan <b>B. Bentuk Turunan</b> (たら/可能/ても/ながら/受身).
+      <span class="rsum-tab-info-sub">↗ Untuk kapan dipakai &amp; contoh kalimat → tab "Pola Kalimat" / "Pola per Bentuk".</span>
+    </div>
     ${rsumLevel !== 'n4' ? kkCheatSheet : ''}
-    ${konjHtml}
+    ${sectionGrupBlock}
+    ${sectionTurunanBlock}
     ${konjNotes}
   </div>`;
 
@@ -7274,10 +7368,27 @@ function renderRangkuman() {
       </div>
     </div>`;
   document.getElementById('rsum-tab-4').innerHTML = `<div style="padding:16px 14px 20px">
-    <div class="rsum-section-title">✨ Kata Sifat — い & な ${rsumLevel !== 'all' ? `<span style="color:${lvColor};font-size:0.75rem">(${lvLabel})</span>` : ''}</div>
+    <div class="rsum-section-title">✨ Konjugasi Kata Sifat — い & な ${rsumLevel !== 'all' ? `<span style="color:${lvColor};font-size:0.75rem">(${lvLabel})</span>` : ''}</div>
+    <div class="rsum-tab-info">
+      <b>Fokus tab ini:</b> <b>rumus / aturan konjugasi</b> kata sifat い (〜い) dan な (〜な).
+      Cari di sini kalau ingin tahu <b>bagaimana cara membentuk</b> negatif, lampau, sambung, dan bentuk lain dari KS.
+      <span class="rsum-tab-info-sub">↗ Untuk <b>pola kalimat</b> yang memakai KS (perbandingan より, superlatif いちばん, KS+く+なります, dll.) → tab "Pola Kalimat" (Bab 12, 17, 18, 25, 34, 38, 39, 55).</span>
+    </div>
     ${rsumLevel === 'n4' ? `<div class="note-box note-purple" style="font-size:0.8rem;line-height:1.6;margin-bottom:14px">💡 Pola kata sifat い & な adalah fondasi N5 yang terus dipakai di N4. Pastikan sudah hafal semua bentuk konjugasinya!</div>` : ''}
     ${adjCheatSheet}
     ${adjHtml}
+    <div class="rsum-tab-info" style="margin-top:18px;background:rgba(124,106,247,0.06);border-color:rgba(124,106,247,0.25)">
+      <b>📍 Pola yang memakai Kata Sifat (lihat tab "Pola Kalimat"):</b>
+      <ul style="margin:6px 0 0 18px;padding:0;line-height:1.8;font-size:0.78rem">
+        <li><b>Bab 12</b> — KS い/な + です (perkenalan sifat)</li>
+        <li><b>Bab 17</b> — Bentuk lampau KS</li>
+        <li><b>Bab 18</b> — KSい+かった / KSな+でした</li>
+        <li><b>Bab 25</b> — KS sebagai penerang KB</li>
+        <li><b>Bab 34</b> — KS + なります (menjadi ~)</li>
+        <li><b>Bab 37–39</b> — KS + たら / KS + ても (kondisi &amp; konsesif)</li>
+        <li><b>Bab 55</b> — KS + ば (kondisional ば)</li>
+      </ul>
+    </div>
   </div>`;
 }
 
